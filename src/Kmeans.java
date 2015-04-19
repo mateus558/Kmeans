@@ -26,10 +26,10 @@ public class Kmeans {
 		DBname = ler.next();
 		fillBD(DBname);
 		grupos = new Grupo[K];
-		
-		for(int i = 0; i < K; i++){
+		for(int i = 0; i < DB.getNAtribs(); i++)
+			normalize(i);
+		for(int i = 0; i < K; i++)
 			grupos[i] = new Grupo(DB.getAmostra(geraNam.nextInt(nAmostras)));
-		}
 		do{
 			for(int i = 0; i < DB.getNAmostras(); i++)
 				atrAmoToGrupo(DB.getAmostra(i));
@@ -63,7 +63,7 @@ public class Kmeans {
 					a.addVal(Float.parseFloat(parts[j]));
 				}
 				DB.addAmostra(a);
-				linha = lerArq.readLine();//lÃª proxima linha
+				linha = lerArq.readLine();//lê proxima linha
 				
 			}
 			nAmostras = nAm;
@@ -107,4 +107,15 @@ public class Kmeans {
 		grupos[ind].addElemento(a);
 	}
 	
+	public static void normalize(int atrib){
+		float val = 0.0f, colMean = 0.0f, dAbsM = 0.0f, scorez = 0.0f;
+		for(int i = 0; i < DB.getNAmostras(); i++){
+			val = DB.getAmostra(i).getVal(atrib);
+			colMean = E.arithMean(DB, DB.getNAmostras(), atrib);
+			dAbsM = E.desAbsMed(atrib, DB.getNAmostras(), DB);
+			scorez = E.zScore(val, colMean, dAbsM);
+			DB.getAmostra(i).chanVal(atrib, scorez);
+		}
+		
+	}
 }
