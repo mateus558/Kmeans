@@ -8,20 +8,11 @@ public class Estatistica {
 	 */
 	public float euclideanDist(Amostra a, Amostra b, int nAtrib){
 		float dist = 0.00f;
-		if(a != null){	
-			for(int i=0;i<nAtrib;i++){
-				System.out.println(a.getVal(i));
-			   dist += (float) Math.pow(a.getVal(i)-b.getVal(i),2);
-			   System.out.println(dist);
-			}
-			System.out.println(dist);
-			return (float) Math.sqrt(dist);	  
-		}else{
-			
-			System.out.println("referencia para objeto com valor nulo!");
-			return -1;
+		for(int i=0;i<nAtrib;i++){
+			System.out.println(a.getVal(i));
+			dist += (float) Math.pow(a.getVal(i)-b.getVal(i),2);
 		}
-		
+		return (float) Math.sqrt(dist);	  
 	}
 	
 	/*
