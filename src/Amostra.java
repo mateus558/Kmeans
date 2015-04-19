@@ -2,7 +2,7 @@
 
 public class Amostra {
 	private float [] dados; 
-	int atributo=0;
+	int atributo;
 	private int classe;
 	private int nAm;	//Numero da amostra
 	
@@ -23,6 +23,12 @@ public class Amostra {
 //			System.out.println("Atributo fora do intervalo do Array.(1)");
 //			return -1;
 //		}
+	}
+	
+	public void chanVal(int index, float val){
+		for(int i = 0; i < dados.length; i++)
+			if(index == i)
+				dados[i] = val;	
 	}
 	
 	public int getClasse(){
