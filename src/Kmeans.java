@@ -18,7 +18,7 @@ public class Kmeans {
 	
 	public static void main(String[] Args){	
 		String DBname;
-		Random geraNam = new Random(); //Gera número inteiro de amostra pseudo-aleatória
+		Random geraNam = new Random(); //Gera nÃºmero inteiro de amostra pseudo-aleatÃ³ria
 		
 		System.out.println("Entre com o numero de grupos K: ");
 		K = ler.nextInt();
@@ -31,9 +31,8 @@ public class Kmeans {
 			grupos[i] = new Grupo(DB.getAmostra(geraNam.nextInt(nAmostras)));
 		}
 		do{
-			for(int i = 0; i < DB.getNAmostras(); i++){
+			for(int i = 0; i < DB.getNAmostras(); i++)
 				atrAmoToGrupo(DB.getAmostra(i));
-			}
 			for(int i = 0; i < K; i++)
 				grupos[i].newCentro(DB.getNAtribs());
 		}while(!paraTuto());
@@ -64,7 +63,7 @@ public class Kmeans {
 					a.addVal(Float.parseFloat(parts[j]));
 				}
 				DB.addAmostra(a);
-				linha = lerArq.readLine();//lê proxima linha
+				linha = lerArq.readLine();//lÃª proxima linha
 				
 			}
 			nAmostras = nAm;
