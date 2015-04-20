@@ -70,4 +70,7 @@ public class DataBase {
 		this.nAtribs = nAtribs;
 	}
 	
+	public void setNAmostras(int nAm){
+		nAmostras = nAm;
+	}
 }
