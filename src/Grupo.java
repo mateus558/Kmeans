@@ -9,7 +9,7 @@ public class Grupo {
 	public Grupo(Amostra centroide){
 		this.centroide = centroide;
 		elementos = new ArrayList<Amostra>();
-		nEle = 0;
+		nEle = -1;
 	}
 	
 	/*
@@ -19,9 +19,9 @@ public class Grupo {
 		float[] medias = new float[nAtrib];
 		Amostra newCentroide = new Amostra(0, nAtrib);
 		oldcentro = centroide;
-		for(int i = 0; i < nEle; i++)
+		for(Amostra ele: elementos)
 			for(int j = 0; j < nAtrib; j++){
-				medias[i] += elementos.get(j).getVal(j);
+				medias[j] += ele.getVal(j);
 			}
 		for(int i = 0; i < nAtrib; i++){
 			medias[i] /= nAtrib;
@@ -59,17 +59,19 @@ public class Grupo {
 	}	
 	
 	public float distOldNewCent(int nAtrib){
-			System.out.println(oldcentro.getVal(1));
-			System.out.println(centroide.getVal(1));
 			return E.euclideanDist(centroide, oldcentro, nAtrib);			
 	}
 	
 	public void imprimeGrupo(int k){
 		int nAm;
+		System.out.println();
 		System.out.println("Amostras do grupo " + k + ":");
 		for(int i = 0; i < nEle; i++){
 			nAm = elementos.get(i).getNumAmos();
-			System.out.println(nAm);
+			System.out.printf("%d, ", nAm);
 		}
+		System.out.println();
+		System.out.println("Numero de elementos do grupo " + k + ": " + nEle);
+		System.out.println();
 	}
 }
