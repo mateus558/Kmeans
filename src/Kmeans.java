@@ -67,7 +67,6 @@ public class Kmeans {
 				
 			}
 			nAmostras = nAm;
-			System.out.println(E.euclideanDist(DB.getAmostra(0), DB.getAmostra(1), DB.getNAmostras()));
 			
 			arq.close(); 				 
 		} 
