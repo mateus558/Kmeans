@@ -36,7 +36,9 @@ public class Kmeans {
 			for(int i = 0; i < K; i++)
 				grupos[i].newCentro(DB.getNAtribs());
 		}while(!paraTuto());
-			
+		for(int i = 0; i < K; i++){
+			grupos[i].imprimeGrupo(i);
+		}
 	}
 	
 	/*
@@ -83,12 +85,13 @@ public class Kmeans {
 		for(int i = 0; i < K; i++){
 			dist = grupos[i].distOldNewCent(DB.getNAtribs());
 			System.out.println(dist);
-			if(grupos[i].distOldNewCent(DB.getNAtribs()) < 1.0f && grupos[i].distOldNewCent(DB.getNAtribs()) >= 0.0f)
+			if(grupos[i].distOldNewCent(DB.getNAtribs()) < 0.000f)
 				cont++;
 		}
 		if(cont == K)
 			return false;
 		else
+			cont = 0;
 			return true;
 	}
 	

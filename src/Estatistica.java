@@ -9,7 +9,6 @@ public class Estatistica {
 	public float euclideanDist(Amostra a, Amostra b, int nAtrib){
 		float dist = 0.00f;
 		for(int i=0;i<nAtrib;i++){
-			System.out.println(a.getVal(i));
 			dist += (float) Math.pow(a.getVal(i)-b.getVal(i),2);
 		}
 		return (float) Math.sqrt(dist);	  
