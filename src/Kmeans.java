@@ -1,23 +1,22 @@
 import java.util.Scanner;
+//import java.util.Arrays;
 import java.util.Random;
 import java.io.BufferedReader; 
 import java.io.FileReader; 
 import java.io.IOException; 
 
-
-
 public class Kmeans {
 	private static DataBase DB;
+	private static String DBname;
 	private static int K;
 	private static int nAmostras;
 	private static Grupo[] grupos;
 	private static Scanner ler = new Scanner(System.in);
-	private static Estatistica E;
+	private static Estatistica E = new Estatistica();
 	private static int nAtrib;
 	
 	
 	public static void main(String[] Args){	
-		String DBname;
 		Random geraNam = new Random(); //Gera número inteiro de amostra pseudo-aleatória
 		
 		System.out.println("Entre com o numero de grupos K: ");
@@ -26,16 +25,17 @@ public class Kmeans {
 		DBname = ler.next();
 		fillBD(DBname);
 		grupos = new Grupo[K];
-		for(int i = 0; i < DB.getNAtribs(); i++)
-			normalize(i);
 		for(int i = 0; i < K; i++)
 			grupos[i] = new Grupo(DB.getAmostra(geraNam.nextInt(nAmostras)));
+		for(int i = 0; i < DB.getNAtribs(); i++)
+			normalize(i);
 		do{
 			for(int i = 0; i < DB.getNAmostras(); i++)
 				atrAmoToGrupo(DB.getAmostra(i));
 			for(int i = 0; i < K; i++)
 				grupos[i].newCentro(DB.getNAtribs());
-		}while(!paraTuto());
+		}while(paraTuto());
+		System.out.println("Nome da base de dados: " + DB.getName());
 		for(int i = 0; i < K; i++){
 			grupos[i].imprimeGrupo(i);
 		}
@@ -54,9 +54,8 @@ public class Kmeans {
 			String linha = lerArq.readLine();
 			String[] parts2 = linha.split("\t");
 			nAtrib = parts2.length-1;	
-			DB = new DataBase("Sonar", parts2.length-2);
+			DB = new DataBase(DBname, parts2.length-2);
 			DB.setNAtribs(nAtrib);
-			System.out.println(DB.getNAtribs());
 			while (linha != null) {
 				String[] parts = linha.split("\t");
 				Amostra a = new Amostra(nAm,parts.length-1); 
@@ -69,7 +68,7 @@ public class Kmeans {
 				
 			}
 			nAmostras = nAm;
-			
+			DB.setNAmostras(nAmostras);
 			arq.close(); 				 
 		} 
 		
@@ -84,8 +83,7 @@ public class Kmeans {
 		float dist = 0.0f;
 		for(int i = 0; i < K; i++){
 			dist = grupos[i].distOldNewCent(DB.getNAtribs());
-			System.out.println(dist);
-			if(grupos[i].distOldNewCent(DB.getNAtribs()) < 0.000f)
+			if(dist < 0.001f)
 				cont++;
 		}
 		if(cont == K)
@@ -97,14 +95,16 @@ public class Kmeans {
 	
 	public static void atrAmoToGrupo(Amostra a){		
 		float[] dists = new float[K];
-		float menor = 100;
 		int ind = 0;
 		for(int i = 0; i < K; i++){
 			dists[i] = E.euclideanDist(a, grupos[i].getCentro(), DB.getNAtribs());
 		}
+		float menor = dists[0];
 		for(int i = 0; i < K; i++){
-			if(dists[i] < menor)
+			if(dists[i] < menor){
+				menor = dists[i];
 				ind = i;
+			}
 		}
 		grupos[ind].addElemento(a);
 	}
