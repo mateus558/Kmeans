@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 //import java.util.Arrays;
 import java.util.Random;
@@ -23,7 +25,14 @@ public class Kmeans {
 		K = ler.nextInt();
 		System.out.println("Entre com o nome da BD: ");
 		DBname = ler.next();
+		System.out.println();
+		long time1 = System.currentTimeMillis();
 		fillBD(DBname);
+		long time2 = System.currentTimeMillis();
+		System.out.println("Tempo para preencher o banco de dados: " + new SimpleDateFormat("mm:ss").format(new Date(time2 - time1)));
+		System.out.println();
+		System.out.println("Atribuindo amostras aos grupos...");
+		long time3 = System.currentTimeMillis();
 		grupos = new Grupo[K];
 		for(int i = 0; i < K; i++)
 			grupos[i] = new Grupo(DB.getAmostra(geraNam.nextInt(nAmostras)));
@@ -35,10 +44,15 @@ public class Kmeans {
 			for(int i = 0; i < K; i++)
 				grupos[i].newCentro(DB.getNAtribs());
 		}while(paraTuto());
+		System.out.println();
 		System.out.println("Nome da base de dados: " + DB.getName());
+		System.out.println("Numero de amostras: " + DB.getNAmostras());
+		System.out.println("Numero de atributos: " + DB.getNAtribs());
+		long time4 = System.currentTimeMillis();
 		for(int i = 0; i < K; i++){
 			grupos[i].imprimeGrupo(i);
 		}
+		System.out.println("Running time: " + new SimpleDateFormat("mm:ss").format(new Date(time4 - time3)));
 	}
 	
 	/*
@@ -47,6 +61,7 @@ public class Kmeans {
 	
 	public static void fillBD(String filename){
 		int nAm = 0;
+		System.out.println("Preenchendo base de dados...");
 		try { 
 			FileReader arq = new FileReader(filename); 
 			BufferedReader lerArq = new BufferedReader(arq); 
@@ -75,7 +90,6 @@ public class Kmeans {
 		catch (IOException e) { 
 			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage()); 
 		} 
-		System.out.println(); 
 	}
 	
 	public static boolean paraTuto(){
