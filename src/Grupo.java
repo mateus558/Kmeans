@@ -69,6 +69,8 @@ public class Grupo {
 		for(int i = 0; i < nEle; i++){
 			nAm = elementos.get(i).getNumAmos();
 			System.out.printf("%d, ", nAm);
+			if(i%100 == 0 && i != 0)
+				System.out.println();
 		}
 		System.out.println();
 		System.out.println("Numero de elementos do grupo " + k + ": " + nEle);

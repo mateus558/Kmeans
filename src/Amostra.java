@@ -1,5 +1,3 @@
-
-
 public class Amostra {
 	private float [] dados; 
 	int atributo;

@@ -1,7 +1,6 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-//import java.util.Arrays;
 import java.util.Random;
 import java.io.BufferedReader; 
 import java.io.FileReader; 
@@ -19,7 +18,7 @@ public class Kmeans {
 	
 	
 	public static void main(String[] Args){	
-		Random geraNam = new Random(); //Gera número inteiro de amostra pseudo-aleatória
+		Random geraNam = new Random(); //Gera numero inteiro de amostra pseudo-aleatoria
 		
 		System.out.println("Entre com o numero de grupos K: ");
 		K = ler.nextInt();
@@ -58,8 +57,7 @@ public class Kmeans {
 	/*
 	 * Preenche o banco de dados.
 	 */
-	
-	public static void fillBD(String filename){
+	private static void fillBD(String filename){
 		int nAm = 0;
 		System.out.println("Preenchendo base de dados...");
 		try { 
@@ -92,7 +90,7 @@ public class Kmeans {
 		} 
 	}
 	
-	public static boolean paraTuto(){
+	private static boolean paraTuto(){
 		int cont = 0;
 		float dist = 0.0f;
 		for(int i = 0; i < K; i++){
@@ -107,7 +105,7 @@ public class Kmeans {
 			return true;
 	}
 	
-	public static void atrAmoToGrupo(Amostra a){		
+	private static void atrAmoToGrupo(Amostra a){		
 		float[] dists = new float[K];
 		int ind = 0;
 		for(int i = 0; i < K; i++){
@@ -123,7 +121,7 @@ public class Kmeans {
 		grupos[ind].addElemento(a);
 	}
 	
-	public static void normalize(int atrib){
+	private static void normalize(int atrib){
 		float val = 0.0f, colMean = 0.0f, dAbsM = 0.0f, scorez = 0.0f;
 		for(int i = 0; i < DB.getNAmostras(); i++){
 			val = DB.getAmostra(i).getVal(atrib);
@@ -131,7 +129,10 @@ public class Kmeans {
 			dAbsM = E.desAbsMed(atrib, DB.getNAmostras(), DB);
 			scorez = E.zScore(val, colMean, dAbsM);
 			DB.getAmostra(i).chanVal(atrib, scorez);
-		}
+		}		
+	}
+	
+	private static void firstCenter(){
 		
 	}
 }
