@@ -5,6 +5,7 @@ import java.util.Random;
 import java.io.BufferedReader; 
 import java.io.FileReader; 
 import java.io.IOException; 
+import java.util.ArrayList;
 
 public class Kmeans {
 	private static DataBase DB;
@@ -18,8 +19,6 @@ public class Kmeans {
 	
 	
 	public static void main(String[] Args){	
-		Random geraNam = new Random(); //Gera numero inteiro de amostra pseudo-aleatoria
-		
 		System.out.println("Entre com o numero de grupos K: ");
 		K = ler.nextInt();
 		System.out.println("Entre com o nome da BD: ");
@@ -32,9 +31,7 @@ public class Kmeans {
 		System.out.println();
 		System.out.println("Atribuindo amostras aos grupos...");
 		long time3 = System.currentTimeMillis();
-		grupos = new Grupo[K];
-		for(int i = 0; i < K; i++)
-			grupos[i] = new Grupo(DB.getAmostra(geraNam.nextInt(nAmostras)));
+		initCenters();
 		for(int i = 0; i < DB.getNAtribs(); i++)
 			normalize(i);
 		do{
@@ -77,7 +74,7 @@ public class Kmeans {
 					a.addVal(Float.parseFloat(parts[j]));
 				}
 				DB.addAmostra(a);
-				linha = lerArq.readLine();//lê proxima linha
+				linha = lerArq.readLine();//lï¿½ proxima linha
 				
 			}
 			nAmostras = nAm;
@@ -132,7 +129,21 @@ public class Kmeans {
 		}		
 	}
 	
+        private static void initCenters(){
+            ArrayList<Integer> nAm = new ArrayList<>();
+            Random geraNam = new Random();
+            grupos = new Grupo[K];
+            int am = 0;
+            for(int i = 0; i < K; i++){
+                am = geraNam.nextInt(nAmostras);
+                if(!nAm.contains(am))
+                    nAm.add(am);
+            }
+            for(int i = 0; i < K; i++)
+                grupos[i] = new Grupo(DB.getAmostra(nAm.get(i)));
+        }
+        
 	private static void firstCenter(){
-		
+            
 	}
 }
