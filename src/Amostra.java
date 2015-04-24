@@ -27,7 +27,12 @@ public class Amostra {
 	public int getClasse(){
             return this.classe;
 	}
+        
+        public void setClasse(int c){
+            classe = c;
+        }
 	
 	public int getNumAmos(){
             return nAm;
 	}
+}

@@ -44,6 +44,7 @@ public class Kmeans {
 		System.out.println("Nome da base de dados: " + DB.getName());
 		System.out.println("Numero de amostras: " + DB.getNAmostras());
 		System.out.println("Numero de atributos: " + DB.getNAtribs());
+                System.out.println("Atributos de classe: 1");
 		long time4 = System.currentTimeMillis();
 		for(int i = 0; i < K; i++){
 			grupos[i].imprimeGrupo(i);
@@ -64,14 +65,16 @@ public class Kmeans {
                         String linha = lerArq.readLine();
                         String[] parts2 = linha.split("\t");
                         nAtrib = parts2.length-1;
-                        DB = new DataBase(DBname, parts2.length-2);
+                        DB = new DataBase(DBname, parts2.length-1);
                         DB.setNAtribs(nAtrib);
                         while (linha != null) {
                             String[] parts = linha.split("\t");
-                            Amostra a = new Amostra(nAm,parts.length-1);
+                            Amostra a = new Amostra(nAm,nAtrib);
                             nAm++;
                             for(int j=0;j<parts.length-1;j++){
                                 a.addVal(Float.parseFloat(parts[j]));
+//                                if(j == parts.length-1)
+//                                    a.setClasse(Integer.parseInt(parts[j]));
                             }
                             DB.addAmostra(a);
                             linha = lerArq.readLine();//l� proxima linha
