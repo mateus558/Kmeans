@@ -1,8 +1,8 @@
 public class Amostra {
-	private float [] dados; 
+	private final float [] dados; 
 	int atributo;
 	private int classe;
-	private int nAm;	//Numero da amostra
+	private final int nAm;	//Numero da amostra
 	
 	public Amostra(int nAm, int nAtrib){
 		this.nAm = nAm;

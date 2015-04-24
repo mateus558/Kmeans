@@ -2,17 +2,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DataBase {
-	private String name;
-	private ArrayList<Amostra> amostras;
+	private final String name;
+	private final ArrayList<Amostra> amostras;
 	private int nAmostras;
 	private int nAtribs;
-	private int[] atribs;
+	private final int[] atribs;
 	
 	public DataBase(String name, int nAtribs){
 		this.name = name;
 		this.nAtribs = nAtribs;
 		atribs = new int[nAtribs];
-		amostras = new ArrayList<Amostra>();
+		amostras = new ArrayList<>();
 		Arrays.fill(atribs, -1);
 	}
 	
@@ -53,7 +53,7 @@ public class DataBase {
 	}
 	
 	/*
-	 * Retorna o nome da base de dados que est· sendo usada.
+	 * Retorna o nome da base de dados que est√° sendo usada.
 	 */
 	public String getName(){
 		return this.name;

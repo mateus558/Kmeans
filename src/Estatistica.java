@@ -1,10 +1,8 @@
-import java.lang.Math;
-
 public class Estatistica {
 	public Estatistica(){}
 	
 	/*
-	 * Calcula a dist‚ncia euclidiana entre duas amostras. (Valor real)
+	 * Calcula a dist√¢ncia euclidiana entre duas amostras. (Valor real)
 	 */
 	public float euclideanDist(Amostra a, Amostra b, int nAtrib){
 		float dist = 0.00f;
@@ -15,7 +13,7 @@ public class Estatistica {
 	}
 	
 	/*
-	 * Retorna o desvio absoluto mÈdio da coluna de um atributo.
+	 * Retorna o desvio absoluto m√©dio da coluna de um atributo.
 	 */
 	public float desAbsMed(int atrib, int nAmostras, DataBase db){
 		float desAbsMed = 0.0f;
@@ -31,8 +29,8 @@ public class Estatistica {
 	
 	/*
 	 * Calcula o escore-z para um valor da coluna de um atributo.
-	 * colMean - MÈdia aritimÈtica dos valores da coluna de um atributo;
-	 * desAbsMed - Desvio absoluto mÈdio dos valores da coluna de um atributo;
+	 * colMean - M√©dia aritim√©tica dos valores da coluna de um atributo;
+	 * desAbsMed - Desvio absoluto m√©dio dos valores da coluna de um atributo;
 	 * val - valor pertencente a coluna de um atributo.
 	 */
 	public float zScore(float val, float colMean, float desAbsMed){
@@ -42,7 +40,7 @@ public class Estatistica {
 	}
 	
 	/*
-	 * Calcula a mÈdia aritmÈtica dos valores da coluna de um atributo.
+	 * Calcula a m√©dia aritm√©tica dos valores da coluna de um atributo.
 	 */
 	public float arithMean(DataBase DB, int nAmostras, int atrib){
 		float mean = 0.00f;

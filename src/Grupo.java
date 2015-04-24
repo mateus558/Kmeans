@@ -1,19 +1,21 @@
 import java.util.ArrayList;
 
 public class Grupo {
-	private Amostra centroide, oldcentro;
-	private ArrayList<Amostra> elementos;
+	private final Amostra centroide;
+        private Amostra oldcentro;
+	private final ArrayList<Amostra> elementos;
 	private int nEle;
-	private Estatistica E = new Estatistica();
+	private final Estatistica E;
 	
 	public Grupo(Amostra centroide){
+        this.E = new Estatistica();
 		this.centroide = centroide;
-		elementos = new ArrayList<Amostra>();
+		elementos = new ArrayList<>();
 		nEle = -1;
 	}
 	
 	/*
-	 * Calcula novo centróide para o grupo
+	 * Calcula novo centrÃ³ide para o grupo
 	 */
 	public void newCentro(int nAtrib){	
 		float[] medias = new float[nAtrib];
@@ -32,7 +34,7 @@ public class Grupo {
 	}
 	
 	/*
-	 * Retorna centróide do grupo
+	 * Retorna centrÃ³ide do grupo
 	 */
 	public Amostra getCentro(){
 		return this.centroide;

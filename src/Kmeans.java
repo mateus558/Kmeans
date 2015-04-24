@@ -13,8 +13,8 @@ public class Kmeans {
 	private static int K;
 	private static int nAmostras;
 	private static Grupo[] grupos;
-	private static Scanner ler = new Scanner(System.in);
-	private static Estatistica E = new Estatistica();
+	private final static Scanner ler = new Scanner(System.in);
+	private final static Estatistica E = new Estatistica();
 	private static int nAtrib;
 	
 	
@@ -58,28 +58,28 @@ public class Kmeans {
 		int nAm = 0;
 		System.out.println("Preenchendo base de dados...");
 		try { 
-			FileReader arq = new FileReader(filename); 
-			BufferedReader lerArq = new BufferedReader(arq); 
-			
-			String linha = lerArq.readLine();
-			String[] parts2 = linha.split("\t");
-			nAtrib = parts2.length-1;	
-			DB = new DataBase(DBname, parts2.length-2);
-			DB.setNAtribs(nAtrib);
-			while (linha != null) {
-				String[] parts = linha.split("\t");
-				Amostra a = new Amostra(nAm,parts.length-1); 
-				nAm++;
-				for(int j=0;j<parts.length-1;j++){
-					a.addVal(Float.parseFloat(parts[j]));
-				}
-				DB.addAmostra(a);
-				linha = lerArq.readLine();//l� proxima linha
-				
-			}
-			nAmostras = nAm;
-			DB.setNAmostras(nAmostras);
-			arq.close(); 				 
+                    try (FileReader arq = new FileReader(filename)) {
+                        BufferedReader lerArq = new BufferedReader(arq);
+                        
+                        String linha = lerArq.readLine();
+                        String[] parts2 = linha.split("\t");
+                        nAtrib = parts2.length-1;
+                        DB = new DataBase(DBname, parts2.length-2);
+                        DB.setNAtribs(nAtrib);
+                        while (linha != null) {
+                            String[] parts = linha.split("\t");
+                            Amostra a = new Amostra(nAm,parts.length-1);
+                            nAm++;
+                            for(int j=0;j<parts.length-1;j++){
+                                a.addVal(Float.parseFloat(parts[j]));
+                            }
+                            DB.addAmostra(a);
+                            linha = lerArq.readLine();//l� proxima linha
+                            
+                        }
+                        nAmostras = nAm;
+                        DB.setNAmostras(nAmostras);
+                    } 				 
 		} 
 		
 		catch (IOException e) { 
@@ -89,17 +89,13 @@ public class Kmeans {
 	
 	private static boolean paraTuto(){
 		int cont = 0;
-		float dist = 0.0f;
+                float dist;
 		for(int i = 0; i < K; i++){
 			dist = grupos[i].distOldNewCent(DB.getNAtribs());
 			if(dist < 0.001f)
 				cont++;
 		}
-		if(cont == K)
-			return false;
-		else
-			cont = 0;
-			return true;
+                return cont != K;
 	}
 	
 	private static void atrAmoToGrupo(Amostra a){		
@@ -119,7 +115,7 @@ public class Kmeans {
 	}
 	
 	private static void normalize(int atrib){
-		float val = 0.0f, colMean = 0.0f, dAbsM = 0.0f, scorez = 0.0f;
+		float val, colMean, dAbsM, scorez;
 		for(int i = 0; i < DB.getNAmostras(); i++){
 			val = DB.getAmostra(i).getVal(atrib);
 			colMean = E.arithMean(DB, DB.getNAmostras(), atrib);
@@ -133,7 +129,7 @@ public class Kmeans {
             ArrayList<Integer> nAm = new ArrayList<>();
             Random geraNam = new Random();
             grupos = new Grupo[K];
-            int am = 0;
+            int am;
             for(int i = 0; i < K; i++){
                 am = geraNam.nextInt(nAmostras);
                 if(!nAm.contains(am))
@@ -143,7 +139,7 @@ public class Kmeans {
                 grupos[i] = new Grupo(DB.getAmostra(nAm.get(i)));
         }
         
-	private static void firstCenter(){
-            
-	}
+//	private static void firstCenter(){
+//            
+//	}
 }
