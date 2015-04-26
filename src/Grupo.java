@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Grupo {
 	private final Amostra centroide;
-        private Amostra oldcentro;
+    private Amostra oldcentro;
 	private final ArrayList<Amostra> elementos;
 	private int nEle;
 	private final Estatistica E;
@@ -78,11 +78,8 @@ public class Grupo {
 		System.out.println("Numero de elementos do grupo " + k + ": " + nEle);
 		System.out.println();
 	}
-<<<<<<< HEAD
 	
 	public int getNEle(){
 		return nEle;
 	}
-=======
->>>>>>> 7f5bae396496dee29d1b73ab95f674f030f3c9ec
 }

@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.Math;
 
 public class Estatistica {
@@ -57,7 +60,7 @@ public class Estatistica {
 		return (float) mean;
 	}
 	
-	public void confusionMatrix(DataBase DB, Grupo[] grupos){
+	public void confusionMatrix(DataBase DB, Grupo[] grupos) throws IOException{
 		System.out.println();
 		int cMatrix[][] = new int[DB.getNClasses()][grupos.length];
 		int classe;
@@ -65,7 +68,6 @@ public class Estatistica {
 			for(int j = 0; j < grupos[i].getNEle()-1; j++){
 				classe = grupos[i].getElemento(j).getClasse();
 				cMatrix[classe-1][i]++;
-
 			}
 		System.out.printf("\t");
 		for(int k = 0; k < grupos.length; k++)
@@ -75,7 +77,7 @@ public class Estatistica {
 				System.out.printf("%d\t", k);
 		System.out.printf("  <-- assigned to cluster");
 		System.out.println();
-		System.out.printf("\t");		
+		System.out.printf("\t");	
 		System.out.println();
 		for(int i = 0; i < DB.getNClasses(); i++){
 			System.out.printf("\t");
@@ -84,7 +86,7 @@ public class Estatistica {
 					System.out.printf("%d ", cMatrix[i][j]);
 					System.out.printf("| %d", i+1);
 				}
-				else 
+				else
 					System.out.printf("%d\t", cMatrix[i][j]);
 			}
 			System.out.println();
@@ -106,12 +108,98 @@ public class Estatistica {
 			soma += acertos[k];
 		System.out.println();
 		acuT = soma/DB.getNAmostras()*100;
-		for(int i = 0; i < grupos.length; i++)
-			acuG[i] = acertos[i]/grupos[i].getNEle();
+		for(int i = 0; i < grupos.length; i++){
+			float a, b;
+			a = acertos[i];
+			b = contC[i];
+			acuG[i] = a/b;
+		}
 		for(int i = 0; i < grupos.length; i++)
 			System.out.println("Acuracia do grupo " + i + ": " + acuG[i]*100 + "%");
 		System.out.println();
 		System.out.println("Acuracia total: " + acuT + "%");
 	}
 	
+	public void saveStats(DataBase DB, Grupo[] grupos){
+		FileWriter arq;
+		try {
+			arq = new FileWriter("Estatistica.txt");
+			PrintWriter escArq = new PrintWriter(arq);
+			
+			escArq.println(" _   _        ___  ___   _____       ___   __   _   _____");
+			escArq.println("| | / /      /   |/   | | ____|     /   | |  \\ | | /  ___/ ");    
+			escArq.println("| |/ /      / /|   /| | | |__      / /| | |   \\| | | |___  "); 
+			escArq.println("| |\\ \\     / / |__/ | | |  __|    / / | | | |\\   | \\___  \\ "); 
+			escArq.println("| | \\ \\   / /       | | | |___   / /  | | | | \\  |  ___| | "); 
+			escArq.println("|_|  \\_\\ /_/        |_| |_____| /_/   |_| |_|  \\_| /_____/ "); 
+			escArq.println();
+			escArq.println("\t\t Relatorio Estatistico:");
+			escArq.println();
+			escArq.println("Matriz de Confusao: ");
+			escArq.println();
+			int cMatrix[][] = new int[DB.getNClasses()][grupos.length];
+			int classe;
+			for(int i = 0; i < grupos.length; i++)
+				for(int j = 0; j < grupos[i].getNEle()-1; j++){
+					classe = grupos[i].getElemento(j).getClasse();
+					cMatrix[classe-1][i]++;
+				}
+			System.out.printf("\t");
+			escArq.printf("\t");
+			for(int k = 0; k < grupos.length; k++)
+				if(k == grupos.length-1){
+					escArq.printf("%d", k);
+				}
+				else{
+					escArq.printf("%d\t", k);
+				}
+			escArq.printf("  <-- assigned to cluster");
+			escArq.println();
+			escArq.printf("\t");
+			escArq.println();
+			for(int i = 0; i < DB.getNClasses(); i++){
+				escArq.printf("\t");
+				for(int j = 0; j < grupos.length; j++){
+					if(j == grupos.length-1){
+						escArq.printf("%d ", cMatrix[i][j]);
+						escArq.printf("| %d", i+1);
+					}
+					else{ 
+						escArq.printf("%d\t", cMatrix[i][j]);
+					}
+				}
+				escArq.println();
+			}
+			
+			int acertos[] = new int[grupos.length];
+			float soma = 0.0f,acuT, acuG[] = new float[grupos.length], contC[] = new float[DB.getNClasses()];
+			for(int i = 0; i < contC.length; i++)
+				for(int j = 0; j < DB.getNAmostras(); j++)
+					if(i == DB.getAmostra(j).getClasse()-1)
+						contC[i]++;
+			for (int i = 0; i < grupos.length; i++)
+				for(int j = 0; j < grupos[i].getNEle(); j++)
+					if(grupos[i].getElemento(j).getClasse()-1 == i)
+						acertos[i]++;
+			for(int k = 0; k < acertos.length; k++)
+				soma += acertos[k];
+			escArq.println();
+			acuT = soma/DB.getNAmostras()*100;
+			for(int i = 0; i < grupos.length; i++){
+				float a, b;
+				a = acertos[i];
+				b = contC[i];
+				acuG[i] = a/b;
+			}
+			for(int i = 0; i < grupos.length; i++)
+				escArq.println("Acuracia do grupo " + i + ": " + acuG[i]*100 + "%");
+			escArq.println();
+			escArq.println("Acuracia total: " + acuT + "%");
+			
+			escArq.close();
+		} catch (IOException e) {
+			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage()); 
+			e.printStackTrace();
+		}
+	}
 }
