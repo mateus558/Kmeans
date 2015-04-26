@@ -78,8 +78,11 @@ public class Grupo {
 		System.out.println("Numero de elementos do grupo " + k + ": " + nEle);
 		System.out.println();
 	}
+<<<<<<< HEAD
 	
 	public int getNEle(){
 		return nEle;
 	}
+=======
+>>>>>>> 7f5bae396496dee29d1b73ab95f674f030f3c9ec
 }

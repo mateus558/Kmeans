@@ -19,6 +19,7 @@ public class Kmeans {
 	
 	
 	public static void main(String[] Args){	
+<<<<<<< HEAD
 		System.out.println(" _   _        ___  ___   _____       ___   __   _   _____");
 		System.out.println("| | / /      /   |/   | | ____|     /   | |  \\ | | /  ___/ ");    
 		System.out.println("| |/ /      / /|   /| | | |__      / /| | |   \\| | | |___  "); 
@@ -26,6 +27,8 @@ public class Kmeans {
 		System.out.println("| | \\ \\   / /       | | | |___   / /  | | | | \\  |  ___| | "); 
 		System.out.println("|_|  \\_\\ /_/        |_| |_____| /_/   |_| |_|  \\_| /_____/ "); 
 		System.out.println();
+=======
+>>>>>>> 7f5bae396496dee29d1b73ab95f674f030f3c9ec
 		System.out.println("Entre com o numero de grupos K: ");
 		K = ler.nextInt();
 		System.out.println("Entre com o nome da BD: ");
@@ -57,20 +60,28 @@ public class Kmeans {
 			grupos[i].imprimeGrupo(i);
 		}
 		System.out.println("Running time: " + new SimpleDateFormat("mm:ss").format(new Date(time4 - time3)));
+<<<<<<< HEAD
 		E.calcPorcent(DB, grupos);
 		System.out.println();
 		System.out.println("Matriz de Confusao: ");
 		E.confusionMatrix(DB, grupos);
+=======
+>>>>>>> 7f5bae396496dee29d1b73ab95f674f030f3c9ec
 	}
 	
 	/*
 	 * Preenche o banco de dados.
 	 */
+<<<<<<< HEAD
 	@SuppressWarnings("resource")
 	private static void fillBD(String filename){
 		int nAm = 0;
 		int nClasses = 0;
 		ArrayList<Integer> classes = new ArrayList<>();
+=======
+	private static void fillBD(String filename){
+		int nAm = 0;
+>>>>>>> 7f5bae396496dee29d1b73ab95f674f030f3c9ec
 		System.out.println("Preenchendo base de dados...");
 		try { 
                     try (FileReader arq = new FileReader(filename)) {
@@ -85,6 +96,7 @@ public class Kmeans {
                             String[] parts = linha.split("\t");
                             Amostra a = new Amostra(nAm,nAtrib);
                             nAm++;
+<<<<<<< HEAD
                             for(int j=0;j<parts.length;j++){                           
                                 if(!(j == parts.length-1))
                                    a.addVal(Float.parseFloat(parts[j]));
@@ -103,6 +115,15 @@ public class Kmeans {
                             DB.setClasses(classes);
                             DB.addAmostra(a);
                             linha = lerArq.readLine();//lï¿½ proxima linha
+=======
+                            for(int j=0;j<parts.length-1;j++){
+                                a.addVal(Float.parseFloat(parts[j]));
+//                                if(j == parts.length-1)
+//                                    a.setClasse(Integer.parseInt(parts[j]));
+                            }
+                            DB.addAmostra(a);
+                            linha = lerArq.readLine();//l� proxima linha
+>>>>>>> 7f5bae396496dee29d1b73ab95f674f030f3c9ec
                             
                         }
                         nAmostras = nAm;
@@ -166,4 +187,11 @@ public class Kmeans {
             for(int i = 0; i < K; i++)
                 grupos[i] = new Grupo(DB.getAmostra(nAm.get(i)));
         }
+<<<<<<< HEAD
+=======
+        
+//	private static void firstCenter(){
+//            
+//	}
+>>>>>>> 7f5bae396496dee29d1b73ab95f674f030f3c9ec
 }

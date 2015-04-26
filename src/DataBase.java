@@ -6,8 +6,11 @@ public class DataBase {
 	private final ArrayList<Amostra> amostras;
 	private int nAmostras;
 	private int nAtribs;
+<<<<<<< HEAD
 	private int nClasses;
 	ArrayList<Integer> classes;
+=======
+>>>>>>> 7f5bae396496dee29d1b73ab95f674f030f3c9ec
 	private final int[] atribs;
 	
 	public DataBase(String name, int nAtribs){
@@ -75,6 +78,7 @@ public class DataBase {
 	public void setNAmostras(int nAm){
 		nAmostras = nAm;
 	}
+<<<<<<< HEAD
 	
 	public int getNClasses(){
 		return nClasses;
@@ -87,4 +91,6 @@ public class DataBase {
 	public void setClasses(ArrayList<Integer> classes){
 		this.classes = classes;
 	}
+=======
+>>>>>>> 7f5bae396496dee29d1b73ab95f674f030f3c9ec
 }
