@@ -20,7 +20,7 @@ public class Estatistica {
 	/*
 	 * Retorna o desvio absoluto médio da coluna de um atributo.
 	 */
-	public float desAbsMed(int atrib, int nAmostras, DataBase db){
+	public static float desAbsMed(int atrib, int nAmostras, DataBase db){
 		float desAbsMed = 0.0f;
 		int i = 0;
 		
@@ -38,7 +38,7 @@ public class Estatistica {
 	 * desAbsMed - Desvio absoluto médio dos valores da coluna de um atributo;
 	 * val - valor pertencente a coluna de um atributo.
 	 */
-	public float zScore(float val, float colMean, float desAbsMed){
+	public static float zScore(float val, float colMean, float desAbsMed){
 		float zScore;
 		zScore = (float)(val - colMean)/desAbsMed;
 		return (float) zScore;
@@ -47,7 +47,7 @@ public class Estatistica {
 	/*
 	 * Calcula a média aritmética dos valores da coluna de um atributo.
 	 */
-	public float arithMean(DataBase DB, int nAmostras, int atrib){
+	public static float arithMean(DataBase DB, int nAmostras, int atrib){
 		float mean = 0.00f;
 		int i = 0;
 		
@@ -118,6 +118,47 @@ public class Estatistica {
 			System.out.println("Acuracia do grupo " + i + ": " + acuG[i]*100 + "%");
 		System.out.println();
 		System.out.println("Acuracia total: " + acuT + "%");
+	}
+	
+	public void linearNormalization(DataBase DB, int atrib){
+		float max = max(DB, atrib);
+		float min = min(DB, atrib), val;
+		for(int i = 0; i < DB.getNAmostras(); i++){
+			val = (DB.getAmostra(i).getVal(atrib) - min)/(max - min);
+			DB.getAmostra(i).chanVal(atrib, val);
+		}
+	}
+	
+	//@SuppressWarnings("unused")
+	void padScoreZ(DataBase DB, int atrib){
+		float val, colMean, dAbsM, scorez;
+		for(int i = 0; i < DB.getNAmostras(); i++){
+			val = DB.getAmostra(i).getVal(atrib);
+			colMean = arithMean(DB, DB.getNAmostras(), atrib);
+			dAbsM = desAbsMed(atrib, DB.getNAmostras(), DB);
+			scorez = zScore(val, colMean, dAbsM);
+			DB.getAmostra(i).chanVal(atrib, scorez);
+		}		
+	}
+	
+	public float max(DataBase DB, int atrib){
+		float max= DB.getAmostra(0).getVal(atrib), val;
+		for (int i = 0; i < DB.getNAmostras(); i++){
+			val = DB.getAmostra(i).getVal(atrib);
+			if(val > max)
+				max = val;
+		}
+		return max;
+	}
+	
+	public float min(DataBase DB, int atrib){
+		float min= DB.getAmostra(0).getVal(atrib), val;
+		for (int i = 0; i < DB.getNAmostras(); i++){
+			val = DB.getAmostra(i).getVal(atrib);
+			if(val < min)
+				min = val;
+		}
+		return min;
 	}
 	
 	public void saveStats(DataBase DB, Grupo[] grupos){

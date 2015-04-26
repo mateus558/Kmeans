@@ -37,13 +37,13 @@ public class Kmeans {
 		long time1 = System.currentTimeMillis();
 		fillBD(DBname);
 		long time2 = System.currentTimeMillis();
-		System.out.println("Tempo para preencher o banco de dados: " + new SimpleDateFormat("mm:ss").format(new Date(time2 - time1)));
+		System.out.println("Tempo para preencher o banco de dados: " + new SimpleDateFormat("mm:ss:SSS").format(new Date(time2 - time1)) + " (mm:ss:SS)");
 		System.out.println();
 		System.out.println("Atribuindo amostras aos grupos...");
 		long time3 = System.currentTimeMillis();
 		initCenters();
 		for(int i = 0; i < DB.getNAtribs(); i++)
-			normalize(i);
+			E.linearNormalization(DB, i);
 		do{
 			for(int i = 0; i < DB.getNAmostras(); i++)
 				atrAmoToGrupo(DB.getAmostra(i));
@@ -59,7 +59,7 @@ public class Kmeans {
 		for(int i = 0; i < K; i++){
 			grupos[i].imprimeGrupo(i);
 		}
-		System.out.println("Running time: " + new SimpleDateFormat("mm:ss").format(new Date(time4 - time3)));
+		System.out.println("Running time: " + new SimpleDateFormat("mm:ss:SS").format(new Date(time4 - time3)) + " (mm:ss:SS)");
 		E.calcPorcent(DB, grupos);
 		System.out.println();
 		System.out.println("Matriz de Confusao: ");
@@ -152,17 +152,6 @@ public class Kmeans {
 		grupos[ind].addElemento(a);
 	}
 	
-	private static void normalize(int atrib){
-		float val, colMean, dAbsM, scorez;
-		for(int i = 0; i < DB.getNAmostras(); i++){
-			val = DB.getAmostra(i).getVal(atrib);
-			colMean = E.arithMean(DB, DB.getNAmostras(), atrib);
-			dAbsM = E.desAbsMed(atrib, DB.getNAmostras(), DB);
-			scorez = E.zScore(val, colMean, dAbsM);
-			DB.getAmostra(i).chanVal(atrib, scorez);
-		}		
-	}
-	
         private static void initCenters(){
             ArrayList<Integer> nAm = new ArrayList<>();
             Random geraNam = new Random();
@@ -201,11 +190,12 @@ public class Kmeans {
         		 gravarArq.println("Grupo " + i + ": ");
         		 gravarArq.println();
         		 gravarArq.println("---------------------------------------------------------");
-            	for(int j = 0; j < grupos[i].getNEle();j++){
+        		 for(int j = 0; j < grupos[i].getNEle();j++){
             		gravarArq.printf("Amostra %d", grupos[i].getElemento(j).getNumAmos());
-            		gravarArq.println();
+            		gravarArq.printf("\t");
             		for(int m = 0; m < nAtrib; m++)
             			gravarArq.print(grupos[i].getElemento(j).getVal(m) + "\t");
+            		gravarArq.print(i+1);
             		gravarArq.println();
             	}	              
             }	
