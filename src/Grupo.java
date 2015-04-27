@@ -22,15 +22,12 @@ public class Grupo {
 		Amostra newCentroide = new Amostra(0, nAtrib);
 		oldcentro = centroide;
 		for(Amostra ele: elementos)
-			for(int j = 0; j < nAtrib; j++){
+			for(int j = 0; j < nAtrib; j++)
 				medias[j] += ele.getVal(j);
-			}
-		for(int i = 0; i < nAtrib; i++){
+		for(int i = 0; i < nAtrib; i++)
 			medias[i] /= nAtrib;
-		}
-		for(int i = 0; i < nAtrib; i ++){
+		for(int i = 0; i < nAtrib; i ++)
 			newCentroide.addVal(medias[nAtrib-1]);
-		}
 	}
 	
 	/*
