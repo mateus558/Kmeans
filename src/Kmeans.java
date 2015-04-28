@@ -170,29 +170,29 @@ public class Kmeans {
         	FileWriter arq = new FileWriter("Relatorio.txt"); 
         	PrintWriter gravarArq = new PrintWriter(arq);
         	
-			gravarArq.println(" _   _        ___  ___   _____       ___   __   _   _____");
-			gravarArq.println("| | / /      /   |/   | | ____|     /   | |  \\ | | /  ___/ ");    
-			gravarArq.println("| |/ /      / /|   /| | | |__      / /| | |   \\| | | |___  "); 
-			gravarArq.println("| |\\ \\     / / |__/ | | |  __|    / / | | | |\\   | \\___  \\ "); 
-			gravarArq.println("| | \\ \\   / /       | | | |___   / /  | | | | \\  |  ___| | "); 
-			gravarArq.println("|_|  \\_\\ /_/        |_| |_____| /_/   |_| |_|  \\_| /_____/ "); 
-			gravarArq.println();
-			gravarArq.println("\t\t Relatorio dos agrupamentos:");
-			gravarArq.println();
-			gravarArq.println("Nome da base de dados: " + DB.getName());
-			gravarArq.println("Numero de amostras: " + DB.getNAmostras());
-			gravarArq.println("Numero de atributos: " + DB.getNAtribs());
+		gravarArq.println(" _   _        ___  ___   _____       ___   __   _   _____");
+		gravarArq.println("| | / /      /   |/   | | ____|     /   | |  \\ | | /  ___/ ");    
+		gravarArq.println("| |/ /      / /|   /| | | |__      / /| | |   \\| | | |___  "); 
+		gravarArq.println("| |\\ \\     / / |__/ | | |  __|    / / | | | |\\   | \\___  \\ "); 
+		gravarArq.println("| | \\ \\   / /       | | | |___   / /  | | | | \\  |  ___| | "); 
+		gravarArq.println("|_|  \\_\\ /_/        |_| |_____| /_/   |_| |_|  \\_| /_____/ "); 
+		gravarArq.println();
+		gravarArq.println("\t\t Relatorio dos agrupamentos:");
+		gravarArq.println();
+		gravarArq.println("Nome da base de dados: " + DB.getName());
+		gravarArq.println("Numero de amostras: " + DB.getNAmostras());
+		gravarArq.println("Numero de atributos: " + DB.getNAtribs());
 	        gravarArq.println("Atributos de classe: 1");
 	        gravarArq.println();
-        	 for(int i = 0; i < K ; i++){
-        		 gravarArq.println("---------------------------------------------------------");
-        		 gravarArq.println();
-        		 gravarArq.println("Grupo " + i + ": ");
-        		 gravarArq.println();
-        		 gravarArq.println("---------------------------------------------------------");
-        		 for(int j = 0; j < grupos[i].getNEle();j++){
-            		gravarArq.printf("Amostra %d", grupos[i].getElemento(j).getNumAmos());
-            		gravarArq.printf("\t");
+        	for(int i = 0; i < K ; i++){
+        		gravarArq.println("---------------------------------------------------------");
+        		gravarArq.println();
+        		gravarArq.println("Grupo " + i + ": ");
+        		gravarArq.println();
+        		gravarArq.println("---------------------------------------------------------");
+        		for(int j = 0; j < grupos[i].getNEle();j++){
+            			gravarArq.printf("Amostra %d", grupos[i].getElemento(j).getNumAmos());
+            			gravarArq.printf("\t");
             		for(int m = 0; m < nAtrib; m++)
             			gravarArq.print(grupos[i].getElemento(j).getVal(m) + "\t");
             		gravarArq.print(i+1);
