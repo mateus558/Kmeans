@@ -5,10 +5,8 @@ public class Grupo {
     private Amostra oldcentro;
 	private final ArrayList<Amostra> elementos;
 	private int nEle;
-	private final Estatistica E;
 	
 	public Grupo(Amostra centroide){
-        this.E = new Estatistica();
 		this.centroide = centroide;
 		elementos = new ArrayList<>();
 		nEle = -1;
@@ -58,7 +56,7 @@ public class Grupo {
 	}	
 	
 	public float distOldNewCent(int nAtrib){
-			return E.euclideanDist(centroide, oldcentro, nAtrib);			
+			return Estatistica.euclideanDist(centroide, oldcentro, nAtrib);			
 	}
 	
 	public void imprimeGrupo(int k){

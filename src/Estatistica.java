@@ -7,9 +7,9 @@ public class Estatistica {
 	public Estatistica(){}
 	
 	/*
-	 * Calcula a distância euclidiana entre duas amostras. (Valor real)
+	 * Calcula a distï¿½ncia euclidiana entre duas amostras. (Valor real)
 	 */
-	public float euclideanDist(Amostra a, Amostra b, int nAtrib){
+	public static float euclideanDist(Amostra a, Amostra b, int nAtrib){
 		float dist = 0.00f;
 		for(int i=0;i<nAtrib;i++){
 			dist += (float) Math.pow(a.getVal(i)-b.getVal(i),2);
@@ -18,7 +18,7 @@ public class Estatistica {
 	}
 	
 	/*
-	 * Retorna o desvio absoluto médio da coluna de um atributo.
+	 * Retorna o desvio absoluto mï¿½dio da coluna de um atributo.
 	 */
 	public static float desAbsMed(int atrib, int nAmostras, DataBase db){
 		float desAbsMed = 0.0f;
@@ -34,8 +34,8 @@ public class Estatistica {
 	
 	/*
 	 * Calcula o escore-z para um valor da coluna de um atributo.
-	 * colMean - Média aritimética dos valores da coluna de um atributo;
-	 * desAbsMed - Desvio absoluto médio dos valores da coluna de um atributo;
+	 * colMean - Mï¿½dia aritimï¿½tica dos valores da coluna de um atributo;
+	 * desAbsMed - Desvio absoluto mï¿½dio dos valores da coluna de um atributo;
 	 * val - valor pertencente a coluna de um atributo.
 	 */
 	public static float zScore(float val, float colMean, float desAbsMed){
@@ -45,7 +45,7 @@ public class Estatistica {
 	}
 	
 	/*
-	 * Calcula a média aritmética dos valores da coluna de um atributo.
+	 * Calcula a mï¿½dia aritmï¿½tica dos valores da coluna de um atributo.
 	 */
 	public static float arithMean(DataBase DB, int nAmostras, int atrib){
 		float mean = 0.00f;
@@ -60,7 +60,7 @@ public class Estatistica {
 		return (float) mean;
 	}
 	
-	public void confusionMatrix(DataBase DB, Grupo[] grupos) throws IOException{
+	public static void confusionMatrix(DataBase DB, Grupo[] grupos) throws IOException{
 		System.out.println();
 		int cMatrix[][] = new int[DB.getNClasses()][grupos.length];
 		int classe;
@@ -93,7 +93,7 @@ public class Estatistica {
 		}
 	}
 	
-	public void calcPorcent(DataBase DB, Grupo[] grupos){
+	public static void calcPorcent(DataBase DB, Grupo[] grupos){
 		int acertos[] = new int[grupos.length];
 		float soma = 0.0f,acuT, acuG[] = new float[grupos.length], contC[] = new float[DB.getNClasses()];
 		for(int i = 0; i < contC.length; i++)
@@ -120,7 +120,7 @@ public class Estatistica {
 		System.out.println("Acuracia total: " + acuT + "%");
 	}
 	
-	public void linearNormalization(DataBase DB, int atrib){
+	public static void linearNormalization(DataBase DB, int atrib){
 		float max = max(DB, atrib);
 		float min = min(DB, atrib), val;
 		for(int i = 0; i < DB.getNAmostras(); i++){
@@ -130,7 +130,7 @@ public class Estatistica {
 	}
 	
 	//@SuppressWarnings("unused")
-	void padScoreZ(DataBase DB, int atrib){
+	public static void padScoreZ(DataBase DB, int atrib){
 		float val, colMean, dAbsM, scorez;
 		for(int i = 0; i < DB.getNAmostras(); i++){
 			val = DB.getAmostra(i).getVal(atrib);
@@ -141,7 +141,7 @@ public class Estatistica {
 		}		
 	}
 	
-	public float max(DataBase DB, int atrib){
+	public static float max(DataBase DB, int atrib){
 		float max= DB.getAmostra(0).getVal(atrib), val;
 		for (int i = 0; i < DB.getNAmostras(); i++){
 			val = DB.getAmostra(i).getVal(atrib);
@@ -151,7 +151,7 @@ public class Estatistica {
 		return max;
 	}
 	
-	public float min(DataBase DB, int atrib){
+	public static float min(DataBase DB, int atrib){
 		float min= DB.getAmostra(0).getVal(atrib), val;
 		for (int i = 0; i < DB.getNAmostras(); i++){
 			val = DB.getAmostra(i).getVal(atrib);
@@ -161,7 +161,7 @@ public class Estatistica {
 		return min;
 	}
 	
-	public void saveStats(DataBase DB, Grupo[] grupos){
+	public static void saveStats(DataBase DB, Grupo[] grupos){
 		FileWriter arq;
 		try {
 			arq = new FileWriter("Estatistica.txt");

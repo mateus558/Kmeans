@@ -16,7 +16,6 @@ public class Kmeans {
 	private static int nAmostras;
 	private static Grupo[] grupos;
 	private final static Scanner ler = new Scanner(System.in);
-	private final static Estatistica E = new Estatistica();
 	private static int nAtrib;
 	
 	
@@ -43,7 +42,7 @@ public class Kmeans {
 		long time3 = System.currentTimeMillis();
 		initCenters();
 		for(int i = 0; i < DB.getNAtribs(); i++)
-			E.linearNormalization(DB, i);
+			Estatistica.linearNormalization(DB, i);
 		do{
 			for(int i = 0; i < DB.getNAmostras(); i++)
 				atrAmoToGrupo(DB.getAmostra(i));
@@ -60,11 +59,11 @@ public class Kmeans {
 			grupos[i].imprimeGrupo(i);
 		}
 		System.out.println("Running time: " + new SimpleDateFormat("mm:ss:SS").format(new Date(time4 - time3)) + " (mm:ss:SS)");
-		E.calcPorcent(DB, grupos);
+		Estatistica.calcPorcent(DB, grupos);
 		System.out.println();
 		System.out.println("Matriz de Confusao: ");
-		E.confusionMatrix(DB, grupos);
-		E.saveStats(DB, grupos);
+		Estatistica.confusionMatrix(DB, grupos);
+		Estatistica.saveStats(DB, grupos);
 		SaveFile();
 		System.out.println();
 		System.out.println();
@@ -140,7 +139,7 @@ public class Kmeans {
 		float[] dists = new float[K];
 		int ind = 0;
 		for(int i = 0; i < K; i++){
-			dists[i] = E.euclideanDist(a, grupos[i].getCentro(), DB.getNAtribs());
+			dists[i] = Estatistica.euclideanDist(a, grupos[i].getCentro(), DB.getNAtribs());
 		}
 		float menor = dists[0];
 		for(int i = 0; i < K; i++){
