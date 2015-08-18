@@ -1,0 +1,38 @@
+ _   _        ___  ___   _____       ___   __   _   _____
+| | / /      /   |/   | | ____|     /   | |  \ | | /  ___/ 
+| |/ /      / /|   /| | | |__      / /| | |   \| | | |___  
+| |\ \     / / |__/ | | |  __|    / / | | | |\   | \___  \ 
+| | \ \   / /       | | | |___   / /  | | | | \  |  ___| | 
+|_|  \_\ /_/        |_| |_____| /_/   |_| |_|  \_| /_____/ 
+
+		 Relatorio Estatistico:
+
+Matriz de Confusao: 
+
+	0	1	2	3	4	5	6	7	8	9	10  <-- assigned to cluster
+	
+	3	0	0	0	38	0	0	27	12	8	0 | 1
+	0	0	0	0	35	0	0	21	34	0	0 | 2
+	0	0	0	0	42	0	6	12	30	0	0 | 3
+	6	0	12	41	18	0	9	2	2	0	0 | 4
+	7	21	5	13	0	31	6	0	0	0	7 | 5
+	0	9	11	31	18	8	7	0	6	0	0 | 6
+	0	27	4	11	17	20	1	0	0	0	9 | 7
+	3	11	0	0	6	27	0	0	0	0	43 | 8
+	5	26	0	1	18	25	1	2	0	0	11 | 9
+	9	19	0	3	24	24	0	2	0	0	6 | 10
+	11	12	0	7	21	13	6	0	5	0	0 | 11
+
+Acuracia do grupo 0: 3.3333335%
+Acuracia do grupo 1: 0.0%
+Acuracia do grupo 2: 0.0%
+Acuracia do grupo 3: 45.555557%
+Acuracia do grupo 4: 0.0%
+Acuracia do grupo 5: 8.888889%
+Acuracia do grupo 6: 1.1111112%
+Acuracia do grupo 7: 0.0%
+Acuracia do grupo 8: 0.0%
+Acuracia do grupo 9: 0.0%
+Acuracia do grupo 10: 0.0%
+
+Acuracia total: 5.353535%
